@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="t d">
+<title id="t">About image placeholder</title><desc id="d">Minimal dark portrait placeholder with geometric forms.</desc>
+<rect width="800" height="1000" fill="#14181b"/>
+<rect x="105" y="130" width="590" height="740" fill="#1d2327"/>
+<circle cx="400" cy="370" r="145" fill="#2b3338"/>
+<path d="M210 850 C255 650 545 650 590 850" fill="#2b3338"/>
+<text x="90" y="945" fill="#89939b" font-family="monospace" font-size="18">REPLACE WITH PORTRAIT / WORKSPACE IMAGE</text>
+</svg>

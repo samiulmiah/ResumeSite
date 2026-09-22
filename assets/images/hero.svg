@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="t d">
+<title id="t">Hero image placeholder</title><desc id="d">Dark abstract engineering-inspired placeholder.</desc>
+<rect width="1200" height="800" fill="#13171a"/>
+<g fill="none" stroke="#39424a" stroke-width="2" opacity=".7">
+<path d="M100 630 C250 340 430 280 600 420 S970 580 1100 220"/>
+<circle cx="600" cy="420" r="210"/>
+<circle cx="600" cy="420" r="120"/>
+<path d="M80 180 H1120 M80 260 H1120 M80 340 H1120 M80 420 H1120 M80 500 H1120 M80 580 H1120" opacity=".2"/>
+</g>
+<text x="64" y="735" fill="#89939b" font-family="monospace" font-size="22">REPLACE WITH HERO / LAB / PORTRAIT IMAGE</text>
+</svg>

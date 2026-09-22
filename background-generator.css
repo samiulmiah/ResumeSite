@@ -1,0 +1,205 @@
+/* V9: smooth full-screen tide-wave generator + readability panels. */
+:root{
+  --bggen-green:#72ff8a;
+  --bggen-line:rgba(236,232,223,.22);
+}
+
+.site-background-canvas{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  z-index:0;
+  pointer-events:none;
+}
+body > header,
+body > nav,
+body > main,
+body > footer,
+body > .scroll-side-nav,
+body > .background-generator{
+  position:relative;
+  z-index:2;
+}
+body > .scroll-side-nav,
+body > .background-generator{position:fixed}
+
+/* Mirror the left navigation: same vertical center, opposite edge. */
+.background-generator{
+  left:auto;
+  right:18px;
+  top:50%;
+  bottom:auto;
+  transform:translateY(-50%);
+  z-index:88!important;
+  width:231px;
+  border:1px solid var(--line,#30363b);
+  background:rgba(11,13,15,.92);
+  color:var(--text,#ece8df);
+  font-family:var(--mono,"Courier New",monospace);
+  backdrop-filter:blur(9px);
+  transition:opacity .2s ease,width .2s ease;
+}
+.background-generator-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-height:51px;
+  padding:0 12px 0 15px;
+  border-bottom:1px solid var(--line,#30363b);
+  font-size:.91rem;
+  text-transform:lowercase;
+}
+.background-generator-head span{color:var(--text,#ece8df)}
+.bg-generator-collapse{
+  width:36px;
+  height:36px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:var(--muted,#92999f);
+  font-family:inherit;
+  cursor:pointer;
+}
+.bg-generator-collapse:hover,
+.bg-generator-collapse:focus-visible{color:var(--bggen-green);outline:none}
+.background-generator-body{padding:14px 15px 15px}
+.background-generator.is-collapsed .background-generator-body{display:none}
+.background-generator.is-collapsed{width:231px}
+.background-generator.is-collapsed .background-generator-head{border-bottom:0}
+.scroll-side-nav .background-generator.is-collapsed{
+  position:absolute;left:-1px;right:auto;top:auto;bottom:calc(100% + 8px);
+  width:calc(100% + 2px);transform:none;opacity:1;
+}
+.scroll-side-nav .background-generator-head{padding:0 8px 0 12px;gap:6px;font-size:10px;min-height:46px}
+.scroll-side-nav .bg-generator-collapse{flex:0 0 28px;width:28px;height:32px}
+
+.bg-generator-mode-label{
+  margin-bottom:12px;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  color:var(--muted,#92999f);
+  font-size:.78rem;
+  text-transform:lowercase;
+}
+.bg-action-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:10px;
+}
+.background-generator button{border-radius:0;font-family:inherit}
+.bg-action-row button,
+.bg-shuffle{
+  min-height:41px;
+  border:1px solid var(--line,#30363b);
+  background:transparent;
+  color:var(--muted,#92999f);
+  font-size:.82rem;
+  cursor:pointer;
+  transition:color .16s ease,border-color .16s ease,transform .16s ease;
+}
+.bg-action-row button:hover,
+.bg-action-row button:focus-visible,
+.bg-shuffle:hover,
+.bg-shuffle:focus-visible{
+  color:var(--bggen-green);
+  border-color:var(--bggen-green);
+  outline:none;
+  animation:calmJitter .72s ease-in-out infinite;
+}
+.bg-shuffle{width:100%;margin-bottom:14px}
+.bg-range{
+  display:block;
+  margin:12px 0;
+  color:var(--muted,#92999f);
+  font-size:.78rem;
+  text-transform:lowercase;
+}
+.bg-range span{display:flex;justify-content:space-between;margin-bottom:8px}
+.bg-range input[type="range"]{
+  appearance:none;
+  width:100%;
+  height:15px;
+  background:transparent;
+  cursor:pointer;
+}
+.bg-range input[type="range"]::-webkit-slider-runnable-track{height:2px;background:#5c6470}
+.bg-range input[type="range"]::-webkit-slider-thumb{
+  appearance:none;
+  width:10px;
+  height:10px;
+  margin-top:-4px;
+  border:1px solid var(--text,#ece8df);
+  border-radius:50%;
+  background:var(--bg,#0b0d0f);
+}
+.bg-range input[type="range"]::-moz-range-track{height:2px;background:#5c6470}
+.bg-range input[type="range"]::-moz-range-thumb{width:6px;height:6px;border:1px solid var(--text,#ece8df);border-radius:50%;background:var(--bg,#0b0d0f)}
+.bg-wave-count{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,.07);
+  color:var(--muted,#92999f);
+  font-size:.78rem;
+}
+.bg-wave-count strong{color:var(--text,#ece8df);font-weight:400}
+
+@media(max-width:1180px){
+  .background-generator{right:10px;width:198px;opacity:.9}
+}
+@media(max-width:900px){
+  .background-generator{
+    right:10px;
+    top:auto;
+    bottom:10px;
+    transform:none;
+    width:192px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .site-background-canvas{opacity:.78}
+  .background-generator *{animation:none!important;transition:none!important}
+}
+
+
+/* Readability panels over the animated line field. No blur filters: cheaper to render. */
+.hero-copy,
+.section-heading,
+.about-copy,
+.resume-column,
+.contact-copy,
+.research-item > div,
+.research-item > p{
+  background:rgba(11,13,15,.88);
+  border:1px solid rgba(236,232,223,.10);
+  box-shadow:0 10px 28px rgba(0,0,0,.16);
+}
+.hero-copy{padding:18px 20px 20px;}
+.section-heading{padding:16px 18px;}
+.about-copy{padding:20px;}
+.resume-column{padding:20px;}
+.contact-copy{padding:20px;}
+.research-item > div,
+.research-item > p{padding:16px;}
+
+/* Project captions already sit on a dark card; strengthen them slightly for the moving background. */
+.project-info{background:rgba(11,13,15,.94);padding-left:12px;padding-right:12px;}
+
+/* The decorative canvas should never participate in layout/repaint hit-testing. */
+.site-background-canvas{
+  contain:strict;
+  will-change:contents;
+}
+
+@media(max-width:700px){
+  .hero-copy,
+  .section-heading,
+  .about-copy,
+  .resume-column,
+  .contact-copy,
+  .research-item > div,
+  .research-item > p{box-shadow:none;}
+}

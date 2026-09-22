@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Samiul Miah — Biomedical Engineering student at Wayne State University focused on biomechanics research, device design, CAD, programming, and hands-on experimentation." />
+  <meta name="keywords" content="Samiul Miah, biomedical engineering, Wayne State University, biomechanics, medical device design, research, CAD, Siemens NX, SolidWorks, MATLAB, Python, C++, Arduino" />
+  <meta name="author" content="Samiul Miah" />
+  <title>Samiul Miah — Biomedical Engineering</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="lowpoly-skeleton.css?v=15" />
+  <link rel="stylesheet" href="background-generator.css?v=15" />
+  <link rel="stylesheet" href="readability.css?v=15" />
+  <link rel="stylesheet" href="project-details.css?v=16" />
+  <link rel="stylesheet" href="biomechanics-theater.css" />
+</head>
+<body>
+  <!-- Fixed decorative background system. It stays behind the site while scrolling. -->
+  <canvas class="site-background-canvas" id="siteBackgroundCanvas" aria-hidden="true"></canvas>
+
+  <aside class="background-generator" id="backgroundGenerator" aria-label="Background generator">
+    <div class="background-generator-head">
+      <span>background generator</span>
+      <button class="bg-generator-collapse" id="bgGeneratorCollapse" type="button" aria-expanded="true">−</button>
+    </div>
+    <div class="background-generator-body">
+      <div class="bg-generator-mode-label">tide field</div>
+      <div class="bg-action-row">
+        <button type="button" data-bg-add>+ wave</button>
+        <button type="button" data-bg-remove>− wave</button>
+      </div>
+      <button class="bg-shuffle" type="button" data-bg-shuffle>regenerate 4</button>
+      <label class="bg-range">
+        <span>presence</span>
+        <input type="range" min="15" max="100" value="58" data-bg-opacity />
+      </label>
+      <label class="bg-range">
+        <span>motion</span>
+        <input type="range" min="0" max="100" value="32" data-bg-speed />
+      </label>
+      <div class="bg-wave-count"><span>waves/span><strong data-bg-count>4</strong></div>
+    </div>
+  </aside>
+
+  <header class="site-header">
+    <a class="wordmark" href="#about" aria-label="Jump to about section">
+      <span class="wordmark-box">SAMIUL MIAH</span>
+    </a>
+    <div class="site-time" id="siteTime" aria-label="Current Detroit time"></div>
+  </header>
+
+  <nav class="main-nav" aria-label="Primary navigation">
+    <a href="#work">work</a>
+    <a href="#research">research</a>
+    <a href="#about">about</a>
+    <a href="#resume">résumé</a>
+    <a href="#contact">contact</a>
+  </nav>
+
+  <aside class="scroll-side-nav" aria-label="Section navigation">
+    <span class="scroll-side-nav-label">navigate</span>
+    <a href="#work">work</a>
+    <a href="#research">research</a>
+    <a href="#about">about</a>
+    <a href="#resume">résumé</a>
+    <a href="#contact">contact</a>
+  </aside>
+
+  <main id="main">
+    <section class="hero skeleton-hero" id="top" aria-labelledby="heroTitle" data-lowpoly-skeleton>
+      <!-- LEFT: interactive 3D skeleton space -->
+      <div class="skeleton-stage" aria-label="Interactive articulated low-poly skeleton">
+        <canvas class="skeleton-canvas"></canvas>
+
+        <!-- Menu is available directly on the 3D workspace. -->
+        <button class="skeleton-menu-toggle skeleton-menu-toggle-stage" type="button" aria-label="Open skeleton controls">Menu</button>
+        <button class="theater-enter" type="button" id="enterTheater"><i data-lucide="expand"></i> Fracture visualizer</button>
+
+        <button class="skeleton-hint" type="button" aria-label="Dismiss skeleton tutorial">
+          drag empty space to orbit • scroll to zoom • click a joint to articulate • click this hint to dismiss
+        </button>
+      </div>
+
+      <!-- RIGHT: normal intro OR skeleton controls -->
+      <div class="hero-side-panel">
+        <div class="hero-copy skeleton-intro-panel">
+          <p class="eyebrow">biomedical engineering / research / design</p>
+          <h1 id="heroTitle">Being at the forefront of advancing healthcare technology.</h1>
+          <p class="hero-deck">This interactive skeleton combines simplified finite element analysis (FEA) with an illustrative fracture model. It visualizes bone bending and crack propagation from my <a href="#work">3-point bone bending research</a>, featured in the work section.</p>
+          <a class="text-link" href="#work">view selected work ↓</a>
+        </div>
+
+        <aside class="skeleton-sidebar" aria-label="Skeleton controls">
+          <div class="skeleton-controls-header">
+            <span>skeleton controls</span>
+            <button class="skeleton-menu-toggle skeleton-menu-toggle-panel" type="button" aria-label="Hide skeleton controls">Hide</button>
+          </div>
+
+          <div class="skeleton-menu">
+            <div class="skeleton-card">
+              <p class="skeleton-card-title">movement modes</p>
+              <button class="skeleton-mode active" data-mode="x" type="button">
+                <strong>lateral movement mode</strong>
+                <span>rotate selected joint about the X axis</span>
+              </button>
+              <button class="skeleton-mode" data-mode="y" type="button">
+                <strong>horizontal movement mode</strong>
+                <span>rotate selected joint about the Y axis</span>
+              </button>
+            </div>
+
+            <div class="skeleton-card">
+              <p class="skeleton-card-title">selection</p>
+              <div class="skeleton-readout">
+                <div class="skeleton-row"><span>joint</span><strong data-joint>pelvis</strong></div>
+                <div class="skeleton-row"><span>active mode</span><strong data-mode-label>X axis rotation</strong></div>
+                <div class="skeleton-row"><span>X rotation</span><strong data-xrot>0°</strong></div>
+                <div class="skeleton-row"><span>Y rotation</span><strong data-yrot>0°</strong></div>
+              </div>
+            </div>
+
+            <div class="skeleton-card">
+              <p class="skeleton-card-title">view</p>
+              <div class="skeleton-control">
+                <label>view yaw</label>
+                <input data-yaw type="range" min="-180" max="180" value="18" />
+              </div>
+              <div class="skeleton-control">
+                <label>view pitch</label>
+                <input data-pitch type="range" min="-60" max="60" value="-3" />
+              </div>
+              <div class="skeleton-control">
+                <label>zoom</label>
+                <input data-zoom type="range" min="3" max="13" step="0.1" value="6.3" />
+              </div>
+            </div>
+
+            <div class="skeleton-card">
+              <p class="skeleton-card-title">pose</p>
+              <button class="skeleton-action" data-reset-joint type="button">reset selected joint</button>
+              <button class="skeleton-action" data-reset-all type="button">reset whole pose</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="workTitle">
+      <div class="section-heading">
+        <span>01</span>
+        <h2 id="workTitle">selected work</h2>
+        <p>Projects are arranged like an archive: image first, followed by short context. Click any project image to expand it across the top of this section.</p>
+      </div>
+      <div class="project-grid" id="projectGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="section split-section" id="research" aria-labelledby="researchTitle">
+      <div class="section-heading sticky-heading">
+        <span>02</span>
+        <h2 id="researchTitle">research</h2>
+      </div>
+      <div class="research-list">
+        <article class="research-item">
+          <div>
+            <p class="meta">Wayne State University · 2024—present</p>
+            <h3>Injury / Biomechanics Student Research Assistant</h3>
+          </div>
+          <p>Conduct wet-lab experimentation and support biomechanics research under Dr. Cameron Bass. Current work includes development and refinement of a three-point bone-bending apparatus used to study fracture behavior.</p>
+        </article>
+        <article class="research-item">
+          <div>
+            <p class="meta">Three-point bone bending · current</p>
+            <h3>Experimental apparatus + research writing</h3>
+          </div>
+          <p>Contributed to apparatus design, machining custom parts, literature review, abstract development, and manuscript work for a project focused on visualizing and measuring bone fracture propagation mechanics.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section about-section" id="about" aria-labelledby="aboutTitle">
+      <div class="about-image-wrap">
+        <img id="aboutImage" src="assets/images/headshot.JPG" alt="Portrait of Samiul Miah" />
+      </div>
+      <div class="about-copy">
+        <div class="section-heading compact-heading">
+          <span>03</span>
+          <h2 id="aboutTitle">about</h2>
+        </div>
+        <p class="about-lead">To me, an engineer is a problem solver, and 
+often the most impactful problems occur in our
+own biology.</p>
+        <p>Throughout my experience in injury biomechanics research,
+creating custom test fixtures, CAD, experimental 
+analysis and programming not only have I become 
+acustomed to finding answers to better our 
+understanding of the human body and its properties.
+But also explaining these unfamiliar topics to
+those who may one day benifit from them. 
+<p> 
+  <p>
+Although explanations aren't always the most intuitive.
+<p>
+Which is why through a multidisciplinary approach I hope to 
+continue creating models that bridge the gap between
+engineers and patients. </p>
+        <div class="skill-columns">
+          <div>
+            <h3>technical</h3>
+            <p>MATLAB<br />Python<br />C++<br />Arduino<br />Siemens NX<br />SolidWorks</p>
+          </div>
+          <div>
+            <h3>working style</h3>
+            <p>prototyping<br />experimental design<br />technical writing<br />research<br />customer communication</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section resume-section" id="resume" aria-labelledby="resumeTitle">
+      <div class="section-heading">
+        <span>04</span>
+        <h2 id="resumeTitle">résumé</h2>
+        <p>click below to see my full resume.</p>
+      </div>
+
+      <div class="resume-layout">
+        <div class="resume-column">
+          <h3>education</h3>
+          <div class="resume-entry">
+            <p class="meta">Expected May 2028</p>
+            <h4>Wayne State University</h4>
+            <p>B.S. in Biomedical Engineering · Detroit, Michigan</p>
+          </div>
+          <div class="resume-entry">
+            <p class="meta">May 2024</p>
+            <h4>Macomb Mathematics Science Technology Center</h4>
+            <p>High School Diploma · STEM concentration</p>
+          </div>
+        </div>
+
+        <div class="resume-column">
+          <h3>experience</h3>
+          <div class="resume-entry">
+            <p class="meta">Sept. 2024—present</p>
+            <h4>Wayne State University</h4>
+            <p>Injury / Biomechanics Student Research Assistant</p>
+          </div>
+          <div class="resume-entry">
+            <p class="meta">Aug. 2022—Dec. 2024</p>
+            <h4>Veterans Thrift Store</h4>
+            <p>Customer Service Associate · trained employees on a POS system and supported customer sales.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-actions">
+        <a class="button" href="assets/docs/Samiul_Miah_Resume_2026.pdf" target="_blank" rel="noopener">open current résumé PDF ↗</a>
+      </div>
+    </section>
+
+    <section class="section contact-section" id="contact" aria-labelledby="contactTitle">
+      <div class="section-heading compact-heading">
+        <span>05</span>
+        <h2 id="contactTitle">contact</h2>
+      </div>
+      <div class="contact-copy">
+        <p class="contact-large">Wether it's biomedical reseach, prototyping, or engineering work, feel free to contact me below.</p>
+        <a href="mailto:Ht1600@wayne.edu">Ht1600@wayne.edu</a>
+        <a href="tel:+15862241308">586-224-1308</a>
+        <p class="small-note">LinkedIn / GitHub / portfolio links [work in progress].</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> Samiul Miah</span>
+    <span>Biomedical Engineering · Detroit</span>
+    <a href="#top">back to top ↑</a>
+  </footer>
+
+  <script src="site-data.js"></script>
+  <script src="project-details.js?v=16"></script>
+  <script src="script.js?v=16"></script>
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/OrbitControls.js"></script>
+  <script src="vendor/numeric.min.js"></script>
+  <script src="vendor/lucide.min.js"></script>
+  <script src="lowpoly-skeleton.js"></script>
+  <script src="beam-solver.js"></script>
+  <script src="attached-fragment.js"></script>
+  <script src="biomechanics-theater.js"></script>
+  <script src="background-generator.js?v=15"></script>
+</body>
+</html>

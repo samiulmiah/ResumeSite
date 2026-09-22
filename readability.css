@@ -1,0 +1,119 @@
+/* V13 — section-wide readability dimmers at ~75% opacity.
+   Each main module gets ONE translucent panel that nearly fills the space
+   between its top and bottom separator lines, without touching either line. */
+:root{
+  --read-section-bg: rgba(4,6,8,.75);
+  --read-section-border: rgba(236,232,223,.14);
+  --read-inner-gap: 18px;
+}
+
+/* Sections become containing blocks for a single full-module dimmer. */
+.section{
+  position:relative !important;
+  isolation:isolate !important;
+}
+.section::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:var(--read-inner-gap);
+  bottom:var(--read-inner-gap);
+  z-index:-1;
+  pointer-events:none;
+  background:var(--read-section-bg);
+  border:1px solid var(--read-section-border);
+}
+.section > *{
+  position:relative;
+  z-index:1;
+}
+
+/* Remove the old collection of smaller readability boxes. */
+.section-heading,
+.research-item > div,
+.research-item > p,
+.about-copy,
+.resume-column,
+.contact-copy,
+.project-info{
+  background:transparent !important;
+  border:0 !important;
+  isolation:auto !important;
+}
+.section-heading::before,
+.research-item > div::before,
+.research-item > p::before,
+.about-copy::before,
+.resume-column::before,
+.contact-copy::before,
+.project-info::before{
+  content:none !important;
+}
+
+/* Preserve comfortable text spacing inside the one large panel. */
+.section-heading{padding:14px 18px !important;}
+.research-item > div,
+.research-item > p{padding:16px !important;}
+.about-copy{padding:20px !important;}
+.resume-column{padding:20px !important;}
+.contact-copy{padding:20px !important;}
+.project-info{padding:16px !important;}
+
+/* Hero copy still needs its own dimmer because the 3D stage shares the hero module. */
+.hero-copy{
+  position:relative !important;
+  isolation:isolate !important;
+  background:rgba(4,6,8,.72) !important;
+  border:1px solid rgba(236,232,223,.14) !important;
+  padding:20px 22px 22px !important;
+}
+.hero-copy::before{content:none !important;}
+
+/* Header + navigation get a restrained dark plate so the moving field never wins. */
+.site-header,
+.main-nav{
+  position:relative;
+  background:rgba(5,7,9,.76) !important;
+  border-color:rgba(236,232,223,.16) !important;
+}
+.site-header{padding-left:14px !important;padding-right:14px !important;}
+.main-nav{padding:9px 14px !important;}
+
+/* Footer receives one matching full-width plate. */
+footer{
+  position:relative !important;
+  isolation:isolate !important;
+  background:rgba(4,6,8,.75) !important;
+  border:1px solid rgba(236,232,223,.14) !important;
+  padding:18px 20px !important;
+}
+footer::before{content:none !important;}
+
+/* Keep section separators pronounced. */
+.hero,
+.section{
+  border-bottom:1px solid rgba(236,232,223,.48) !important;
+}
+
+@media(max-width:700px){
+  :root{--read-inner-gap:12px;--read-section-bg:rgba(4,6,8,.80);}
+  .section::before{left:0;right:0;}
+  .hero-copy{background:rgba(4,6,8,.78)!important;}
+}
+
+/* V14 sidebar reliability: always keep the fixed navigation above content overlays and clickable. */
+.scroll-side-nav{
+  z-index:120 !important;
+  isolation:isolate;
+}
+body.show-scroll-side-nav .scroll-side-nav{
+  pointer-events:auto !important;
+}
+.scroll-side-nav a{
+  position:relative;
+  z-index:2;
+  pointer-events:auto !important;
+  cursor:pointer;
+  touch-action:manipulation;
+}

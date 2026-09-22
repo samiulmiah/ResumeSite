@@ -1,0 +1,45 @@
+/* V16 expanded-project detail bank. Hidden until a project is featured. */
+.project-expanded-details{
+  display:none;
+  margin-top:22px;
+  padding:18px 0 2px;
+  border-top:1px solid rgba(236,232,223,.22);
+}
+.project-card.project-card--featured .project-expanded-details{
+  display:block;
+}
+.project-expanded-label{
+  margin:0 0 10px!important;
+  color:var(--muted,#92999f)!important;
+  font-family:var(--mono,"Courier New",monospace);
+  font-size:.68rem!important;
+  letter-spacing:.04em;
+  text-transform:lowercase;
+}
+.project-expanded-copy{
+  max-width:68ch!important;
+  margin:0 0 16px!important;
+  color:var(--text,#ece8df)!important;
+  font-size:.92rem!important;
+  line-height:1.65;
+}
+.project-document-link{
+  display:inline-block;
+  color:var(--text,#ece8df);
+  font-family:var(--mono,"Courier New",monospace);
+  font-size:.72rem;
+  text-decoration:none;
+  border-bottom:1px solid currentColor;
+  padding-bottom:2px;
+}
+.project-document-link:hover,
+.project-document-link:focus-visible{
+  color:var(--interaction-green,#55f56a);
+  outline:none;
+}
+.project-card:not(.project-card--featured) .project-expanded-details{
+  display:none!important;
+}
+@media(max-width:700px){
+  .project-expanded-copy{font-size:.86rem!important;}
+}
